@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUREUM | Finanza, Trading & Reselling</title>
+    
+    <!-- Google Fonts: Cinzel per il brand classico-luxury, Plus Jakarta Sans per massima chiarezza -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aureum: {
+                            gold: '#C9A255',
+                            goldLight: '#E6CA8A',
+                            goldDark: '#9A742C',
+                            obsidian: '#0B0B0A',
+                            charcoal: '#141413',
+                            surface: '#1C1B19',
+                            ivory: '#F5F3EE'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0B0B0A;
+            color: #F5F3EE;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Superficie oro satinato ispirata allo sfondo del logo */
+        .gold-panel {
+            background: radial-gradient(circle at 30% 20%, #DFBE78 0%, #C69E4E 55%, #A67E32 100%);
+        }
+
+        .embossed-logo {
+            filter: drop-shadow(0px 6px 10px rgba(38, 25, 4, 0.35)) drop-shadow(0px -1px 1px rgba(255, 244, 210, 0.5));
+        }
+
+        .gold-text {
+            background: linear-gradient(135deg, #F3DC9F 0%, #C9A255 55%, #9E782E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #E6CA8A 0%, #C9A255 55%, #A37D33 100%);
+            color: #120E07;
+            box-shadow: 0 4px 20px rgba(201, 162, 85, 0.22);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 26px rgba(201, 162, 85, 0.35);
+        }
+
+        .border-subtle {
+            border-color: rgba(201, 162, 85, 0.16);
+        }
+
+        /* Range Slider puliti */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #E6CA8A;
+            border: 3px solid #0B0B0A;
+            cursor: pointer;
+            margin-top: -7px;
+            box-shadow: 0 0 10px rgba(201, 162, 85, 0.5);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #272521;
+            border-radius: 999px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-aureum-gold selection:text-aureum-obsidian">
+
+    <!-- ==================== 1. NAVBAR ESSENZIALE (SOLO 4 VOCI CHIARE) ==================== -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-aureum-obsidian/90 backdrop-blur-md border-b border-subtle">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            
+            <!-- Logo AUREUM -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl gold-panel p-1.5 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                    <svg viewBox="0 0 100 110" class="w-full h-full fill-none stroke-[#1D1608]" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M32 22 C45 10, 68 12, 74 22 L72 28 C62 26, 52 28, 46 36 C42 42, 41 48, 37 49 C32 49, 30 43, 33 38 C36 34, 41 35, 42 40" />
+                        <path d="M71 28 L77 45 L70 48 L72 54 L68 57 L71 61 C69 68, 62 72, 53 71 C46 70, 41 64, 39 56" />
+                        <path d="M58 36 C62 34, 67 35, 69 38 C66 41, 61 41, 58 38 Z" />
+                        <path d="M31 46 C29 62, 24 76, 16 84 C32 86, 46 93, 56 101 L63 94 C54 86, 47 78, 47 69" />
+                    </svg>
+                </div>
+                <span class="font-serif text-xl sm:text-2xl font-bold tracking-[0.22em] text-aureum-goldLight">AUREUM</span>
+            </a>
+
+            <!-- Link di Navigazione Puliti -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-stone-300">
+                <a href="#percorsi" class="hover:text-aureum-goldLight transition-colors">Aree Tematiche</a>
+                <a href="#guide" class="hover:text-aureum-goldLight transition-colors">Guide Pratiche</a>
+                <a href="#strumenti" class="hover:text-aureum-goldLight transition-colors">Calcolatori</a>
+            </nav>
+
+            <!-- Pulsante Canale YouTube + Menu Mobile -->
+            <div class="flex items-center gap-3">
+                <a href="https://youtube.com/@aureummmm?si=VPAo7N-sSHqoZV_P" target="_blank" rel="noopener noreferrer" class="btn-gold px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2">
+                    <i data-lucide="youtube" class="w-4 h-4"></i>
+                    <span>Canale YouTube</span>
+                </a>
+                <button id="mobile-menu-btn" aria-label="Menu" class="md:hidden p-2.5 rounded-xl bg-aureum-surface text-aureum-goldLight border border-subtle">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile Semplice -->
+        <div id="mobile-menu" class="hidden md:hidden bg-aureum-charcoal border-b border-subtle px-4 py-4 space-y-2">
+            <a href="#percorsi" class="block px-4 py-3 rounded-xl text-stone-200 hover:bg-aureum-surface font-medium">Aree Tematiche</a>
+            <a href="#guide" class="block px-4 py-3 rounded-xl text-stone-200 hover:bg-aureum-surface font-medium">Guide Pratiche</a>
+            <a href="#strumenti" class="block px-4 py-3 rounded-xl text-stone-200 hover:bg-aureum-surface font-medium">Calcolatori</a>
+        </div>
+    </header>
+
+    <!-- ==================== 2. HERO SECTION PULITA E DIRETTA ==================== -->
+    <section class="pt-32 pb-20 sm:pt-40 sm:pb-28 px-4 sm:px-6 relative overflow-hidden border-b border-subtle">
+        <!-- Bagliore dorato soffuso di sfondo -->
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[520px] h-[320px] bg-aureum-gold/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <!-- Emblema Centrale Ispirato al Logo -->
+            <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-8 rounded-3xl gold-panel p-4 flex items-center justify-center shadow-[0_20px_50px_rgba(201,162,85,0.2)] border border-[#FFF2D1]/40">
+                <svg viewBox="0 0 100 110" class="w-full h-full fill-none stroke-[#1D1608] embossed-logo" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M32 22 C45 10, 68 12, 74 22 L72 28 C62 26, 52 28, 46 36 C42 42, 41 48, 37 49 C32 49, 30 43, 33 38 C36 34, 41 35, 42 40" />
+                    <path d="M71 28 L77 45 L70 48 L72 54 L68 57 L71 61 C69 68, 62 72, 53 71 C46 70, 41 64, 39 56" />
+                    <path d="M58 36 C62 34, 67 35, 69 38 C66 41, 61 41, 58 38 Z" />
+                    <path d="M31 46 C29 62, 24 76, 16 84 C32 86, 46 93, 56 101 L63 94 C54 86, 47 78, 47 69" />
+                    <path d="M27 72 C35 76, 42 82, 46 89" />
+                </svg>
+            </div>
+
+            <p class="text-xs font-bold uppercase tracking-[0.3em] text-aureum-gold mb-4">
+                Educazione Finanziaria • Trading • Reselling
+            </p>
+
+            <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-aureum-ivory leading-[1.15]">
+                Impara a gestire, moltiplicare e <span class="gold-text">proteggere i tuoi soldi.</span>
+            </h1>
+
+            <p class="mt-6 text-base sm:text-lg text-stone-400 max-w-2xl mx-auto leading-relaxed">
+                Niente paroloni inutili o promesse irrealistiche. Su <strong>AUREUM</strong> trovi guide scritte chiare, schemi pratici e strumenti per capire davvero come funzionano i mercati e il reselling.
+            </p>
+
+            <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#guide" class="btn-gold w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-sm tracking-wide flex items-center justify-center gap-2">
+                    <span>Leggi le Guide Pratiche</span>
+                    <i data-lucide="book-open" class="w-4 h-4"></i>
+                </a>
+                <a href="https://youtube.com/@aureummmm?si=VPAo7N-sSHqoZV_P" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 rounded-2xl font-semibold text-sm text-stone-200 bg-aureum-charcoal hover:bg-aureum-surface border border-subtle transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="youtube" class="w-4 h-4 text-aureum-gold"></i>
+                    <span>Vai al Canale @aureummmm</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. LE 4 AREE DI AUREUM (SCHEDE INTERATTIVE SEMPLICI) ==================== -->
+    <section id="percorsi" class="py-24 px-4 sm:px-6 bg-aureum-charcoal/50 border-b border-subtle">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-[0.28em] text-aureum-gold">Cosa Insegniamo</span>
+                <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-bold text-aureum-ivory">
+                    I 4 Pilastri di AUREUM
+                </h2>
+                <p class="mt-3 text-sm sm:text-base text-stone-400">
+                    Seleziona un argomento qui sotto per vedere subito come funziona e quali competenze sviluppi.
+                </p>
+            </div>
+
+            <!-- 4 Pulsanti Tab Puliti -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+                <button onclick="showArea('trading')" id="btn-area-trading" class="area-btn p-4 rounded-2xl text-left transition-all bg-aureum-gold text-aureum-obsidian font-bold shadow-lg">
+                    <span class="text-[11px] uppercase tracking-wider opacity-75 block">01 • Mercati</span>
+                    <span class="text-sm sm:text-base">Trading & Grafici</span>
+                </button>
+
+                <button onclick="showArea('reselling')" id="btn-area-reselling" class="area-btn p-4 rounded-2xl text-left transition-all bg-aureum-charcoal text-stone-300 hover:text-aureum-goldLight border border-subtle font-semibold">
+                    <span class="text-[11px] uppercase tracking-wider text-aureum-gold block">02 • Compravendita</span>
+                    <span class="text-sm sm:text-base">Reselling & Flipping</span>
+                </button>
+
+                <button onclick="showArea('investimenti')" id="btn-area-investimenti" class="area-btn p-4 rounded-2xl text-left transition-all bg-aureum-charcoal text-stone-300 hover:text-aureum-goldLight border border-subtle font-semibold">
+                    <span class="text-[11px] uppercase tracking-wider text-aureum-gold block">03 • Lungo Termine</span>
+                    <span class="text-sm sm:text-base">Investimenti & ETF</span>
+                </button>
+
+                <button onclick="showArea('gestione')" id="btn-area-gestione" class="area-btn p-4 rounded-2xl text-left transition-all bg-aureum-charcoal text-stone-300 hover:text-aureum-goldLight border border-subtle font-semibold">
+                    <span class="text-[11px] uppercase tracking-wider text-aureum-gold block">04 • Fondamenta</span>
+                    <span class="text-sm sm:text-base">Gestione Capitale</span>
+                </button>
+            </div>
+
+            <!-- Box Spiegazione + Illustrazione Visiva -->
+            <div id="area-display" class="bg-aureum-charcoal rounded-3xl border border-subtle p-6 sm:p-10 shadow-xl">
+                <!-- Popolato via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. GUIDE PRATICHE ILLUSTRATE (SOLO TESTO E SCHEMI VISIVI, ZERO VIDEO) ==================== -->
+    <section id="guide" class="py-24 px-4 sm:px-6 border-b border-subtle">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-xs font-bold uppercase tracking-[0.28em] text-aureum-gold">Manuale Scritto</span>
+                <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-bold text-aureum-ivory">
+                    Guide & Lezioni Illustrate
+                </h2>
+                <p class="mt-3 text-sm sm:text-base text-stone-400">
+                    Spiegazioni chiare, esempi numerici e schemi grafici per capire i concetti chiave senza perdere tempo. Clicca su una guida per leggerla.
+                </p>
+            </div>
+
+            <!-- Griglia 4 Guide -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Guida 1: Trading -->
+                <article onclick="openGuide(0)" class="group cursor-pointer rounded-3xl bg-aureum-charcoal border border-subtle hover:border-aureum-gold/60 overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                    <!-- Illustrazione Grafica Custom SVG -->
+                    <div class="h-48 bg-gradient-to-br from-[#1C1913] to-[#0E0E0D] p-6 border-b border-subtle flex items-center justify-center relative">
+                        <svg viewBox="0 0 320 120" class="w-full h-full max-w-xs">
+                            <!-- Linea di Supporto -->
+                            <line x1="20" y1="95" x2="300" y2="95" stroke="#C9A255" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.7"/>
+                            <text x="22" y="88" fill="#C9A255" font-size="9" font-family="sans-serif" font-weight="bold">ZONA DI SUPPORTO / LIQUIDITÀ</text>
+                            <!-- Candele Giapponesi Stilizzate -->
+                            <line x1="55" y1="30" x2="55" y2="85" stroke="#78716C" stroke-width="2"/>
+                            <rect x="49" y="40" width="12" height="32" rx="2" fill="#78716C"/>
+                            
+                            <line x1="95" y1="45" x2="95" y2="94" stroke="#78716C" stroke-width="2"/>
+                            <rect x="89" y="55" width="12" height="35" rx="2" fill="#78716C"/>
+
+                            <!-- Rimbalzo Rialzista -->
+                            <line x1="135" y1="50" x2="135" y2="94" stroke="#E6CA8A" stroke-width="2"/>
+                            <rect x="129" y="58" width="12" height="30" rx="2" fill="#E6CA8A"/>
+
+                            <line x1="175" y1="32" x2="175" y2="68" stroke="#E6CA8A" stroke-width="2"/>
+                            <rect x="169" y="38" width="12" height="24" rx="2" fill="#E6CA8A"/>
+
+                            <line x1="215" y1="18" x2="215" y2="50" stroke="#E6CA8A" stroke-width="2"/>
+                            <rect x="209" y="22" width="12" height="22" rx="2" fill="#E6CA8A"/>
+
+                            <!-- Freccia Trend -->
+                            <path d="M135 88 L225 20" stroke="#10B981" stroke-width="2" fill="none"/>
+                            <circle cx="135" cy="92" r="4" fill="#10B981"/>
+                        </svg>
+                    </div>
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-aureum-gold mb-2">
+                                <span>Lezione 01 • Trading</span>
+                                <span class="text-stone-500">Lettura: 3 min</span>
+                            </div>
+                            <h3 class="font-serif text-xl sm:text-2xl font-bold text-aureum-ivory group-hover:text-aureum-goldLight transition-colors">
+                                Come leggere un grafico pulito (Price Action & Supporti)
+                            </h3>
+                            <p class="mt-3 text-sm text-stone-400 leading-relaxed">
+                                Perché riempire lo schermo di indicatori crea solo confusione e come individuare le vere zone dove il prezzo reagisce.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-stone-800/80 flex items-center justify-between text-xs font-bold text-aureum-goldLight">
+                            <span>Leggi la spiegazione completa</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Guida 2: Reselling -->
+                <article onclick="openGuide(1)" class="group cursor-pointer rounded-3xl bg-aureum-charcoal border border-subtle hover:border-aureum-gold/60 overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                    <!-- Illustrazione Schema Margine Reselling -->
+                    <div class="h-48 bg-gradient-to-br from-[#1C1913] to-[#0E0E0D] p-6 border-b border-subtle flex items-center justify-center">
+                        <svg viewBox="0 0 320 120" class="w-full h-full max-w-xs">
+                            <!-- Step 1: Acquisto -->
+                            <rect x="15" y="35" width="75" height="50" rx="10" fill="#1C1B19" stroke="#78716C" stroke-width="1.5"/>
+                            <text x="52" y="56" text-anchor="middle" fill="#A8A29E" font-size="9" font-family="sans-serif">ACQUISTO</text>
+                            <text x="52" y="73" text-anchor="middle" fill="#F5F3EE" font-size="13" font-family="sans-serif" font-weight="bold">€ 80</text>
+
+                            <path d="M95 60 L118 60" stroke="#C9A255" stroke-width="2" marker-end="url(#arrow)"/>
+
+                            <!-- Step 2: Rivendita -->
+                            <rect x="122" y="35" width="75" height="50" rx="10" fill="#1C1B19" stroke="#C9A255" stroke-width="1.5"/>
+                            <text x="159" y="56" text-anchor="middle" fill="#E6CA8A" font-size="9" font-family="sans-serif">RIVENDITA</text>
+                            <text x="159" y="73" text-anchor="middle" fill="#F5F3EE" font-size="13" font-family="sans-serif" font-weight="bold">€ 155</text>
+
+                            <path d="M202 60 L225 60" stroke="#10B981" stroke-width="2"/>
+
+                            <!-- Step 3: Utile Netto -->
+                            <rect x="229" y="30" width="78" height="60" rx="10" fill="#10B981" fill-opacity="0.15" stroke="#10B981" stroke-width="1.5"/>
+                            <text x="268" y="53" text-anchor="middle" fill="#6EE7B7" font-size="9" font-family="sans-serif" font-weight="bold">UTILE NETTO</text>
+                            <text x="268" y="73" text-anchor="middle" fill="#34D399" font-size="14" font-family="sans-serif" font-weight="bold">+ € 60</text>
+                        </svg>
+                    </div>
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-aureum-gold mb-2">
+                                <span>Lezione 02 • Reselling</span>
+                                <span class="text-stone-500">Lettura: 3 min</span>
+                            </div>
+                            <h3 class="font-serif text-xl sm:text-2xl font-bold text-aureum-ivory group-hover:text-aureum-goldLight transition-colors">
+                                Il metodo del Reselling: trovare margini reali e veloci
+                            </h3>
+                            <p class="mt-3 text-sm text-stone-400 leading-relaxed">
+                                Come comprare prodotti sottovalutati, calcolare subito le commissioni ed evitare di bloccare i soldi su articoli che non si vendono.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-stone-800/80 flex items-center justify-between text-xs font-bold text-aureum-goldLight">
+                            <span>Leggi la spiegazione completa</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Guida 3: Gestione del Rischio -->
+                <article onclick="openGuide(2)" class="group cursor-pointer rounded-3xl bg-aureum-charcoal border border-subtle hover:border-aureum-gold/60 overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                    <!-- Illustrazione Risk/Reward 1:3 -->
+                    <div class="h-48 bg-gradient-to-br from-[#1C1913] to-[#0E0E0D] p-6 border-b border-subtle flex items-center justify-center">
+                        <svg viewBox="0 0 320 120" class="w-full h-full max-w-xs">
+                            <!-- Barra Rischio 1x -->
+                            <rect x="65" y="70" width="55" height="30" rx="6" fill="#F43F5E" fill-opacity="0.25" stroke="#F43F5E" stroke-width="1.5"/>
+                            <text x="92" y="89" text-anchor="middle" fill="#FDA4AF" font-size="10" font-family="sans-serif" font-weight="bold">RISCHIO 1%</text>
+                            <text x="92" y="114" text-anchor="middle" fill="#A8A29E" font-size="9" font-family="sans-serif">Stop Loss (-€50)</text>
+
+                            <!-- Barra Target 3x -->
+                            <rect x="195" y="15" width="65" height="85" rx="6" fill="#10B981" fill-opacity="0.25" stroke="#10B981" stroke-width="1.5"/>
+                            <text x="227" y="55" text-anchor="middle" fill="#6EE7B7" font-size="10" font-family="sans-serif" font-weight="bold">TARGET 3%</text>
+                            <text x="227" y="70" text-anchor="middle" fill="#34D399" font-size="9" font-family="sans-serif">R:R 1:3</text>
+                            <text x="227" y="114" text-anchor="middle" fill="#A8A29E" font-size="9" font-family="sans-serif">Take Profit (+€150)</text>
+                        </svg>
+                    </div>
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-aureum-gold mb-2">
+                                <span>Lezione 03 • Risk Management</span>
+                                <span class="text-stone-500">Lettura: 2 min</span>
+                            </div>
+                            <h3 class="font-serif text-xl sm:text-2xl font-bold text-aureum-ivory group-hover:text-aureum-goldLight transition-colors">
+                                La regola dell'1%: come non perdere mai il capitale
+                            </h3>
+                            <p class="mt-3 text-sm text-stone-400 leading-relaxed">
+                                Il segreto dei trader profittevoli non è indovinare ogni operazione, ma perdere pochissimo quando sbagliano e guadagnare il triplo quando hanno ragione.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-stone-800/80 flex items-center justify-between text-xs font-bold text-aureum-goldLight">
+                            <span>Leggi la spiegazione completa</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Guida 4: Investimenti & ETF -->
+                <article onclick="openGuide(3)" class="group cursor-pointer rounded-3xl bg-aureum-charcoal border border-subtle hover:border-aureum-gold/60 overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                    <!-- Illustrazione Curva Interesse Composto -->
+                    <div class="h-48 bg-gradient-to-br from-[#1C1913] to-[#0E0E0D] p-6 border-b border-subtle flex items-center justify-center">
+                        <svg viewBox="0 0 320 120" class="w-full h-full max-w-xs">
+                            <line x1="25" y1="100" x2="295" y2="100" stroke="#44403C" stroke-width="1.5"/>
+                            <!-- Linea Versato -->
+                            <path d="M25 98 L285 65" stroke="#78716C" stroke-width="2" stroke-dasharray="4 4" fill="none"/>
+                            <!-- Curva Esponenziale -->
+                            <path d="M25 98 Q 160 88, 285 18" stroke="#E6CA8A" stroke-width="3" fill="none"/>
+                            <circle cx="285" cy="18" r="5" fill="#E6CA8A"/>
+                            <text x="215" y="22" fill="#E6CA8A" font-size="9" font-family="sans-serif" font-weight="bold">INTERESSE COMPOSTO</text>
+                        </svg>
+                    </div>
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-aureum-gold mb-2">
+                                <span>Lezione 04 • Investimenti</span>
+                                <span class="text-stone-500">Lettura: 3 min</span>
+                            </div>
+                            <h3 class="font-serif text-xl sm:text-2xl font-bold text-aureum-ivory group-hover:text-aureum-goldLight transition-colors">
+                                ETF & Interesse Composto: far lavorare i profitti
+                            </h3>
+                            <p class="mt-3 text-sm text-stone-400 leading-relaxed">
+                                Cosa fare con i soldi guadagnati dal lavoro o dal reselling: come costruire un piano di accumulo semplice ed efficace nel tempo.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-stone-800/80 flex items-center justify-between text-xs font-bold text-aureum-goldLight">
+                            <span>Leggi la spiegazione completa</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 5. CALCOLATORI INTUITIVI (2 TAB SEMPLICI) ==================== -->
+    <section id="strumenti" class="py-24 px-4 sm:px-6 bg-aureum-charcoal/50 border-b border-subtle">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="text-xs font-bold uppercase tracking-[0.28em] text-aureum-gold">Strumenti Gratuiti</span>
+                <h2 class="mt-2 font-serif text-3xl sm:text-4xl font-bold text-aureum-ivory">
+                    Fai i Conti Prima di Agire
+                </h2>
+                <p class="mt-3 text-sm sm:text-base text-stone-400">
+                    Due calcolatori immediati per verificare il margine di un prodotto o stimare la crescita dei tuoi risparmi.
+                </p>
+            </div>
+
+            <!-- Selettore 2 Tab -->
+            <div class="flex justify-center gap-3 mb-8">
+                <button onclick="switchCalc('reselling')" id="calc-tab-reselling" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-aureum-gold text-aureum-obsidian transition-all">
+                    1. Profitto Reselling
+                </button>
+                <button onclick="switchCalc('compound')" id="calc-tab-compound" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-aureum-charcoal text-stone-300 border border-subtle hover:text-aureum-goldLight transition-all">
+                    2. Crescita Capitale
+                </button>
+            </div>
+
+            <!-- CALCOLATORE 1: RESELLING -->
+            <div id="calc-box-reselling" class="bg-aureum-charcoal rounded-3xl border border-subtle p-6 sm:p-10 shadow-xl">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+                    <div>
+                        <label for="rBuy" class="block text-xs font-semibold text-stone-400 mb-2">Quanto lo paghi (€)</label>
+                        <input type="number" id="rBuy" value="90" min="0" class="w-full px-4 py-3.5 rounded-xl bg-aureum-obsidian border border-stone-800 text-aureum-ivory text-lg font-bold focus:outline-none focus:border-aureum-gold">
+                    </div>
+                    <div>
+                        <label for="rSell" class="block text-xs font-semibold text-stone-400 mb-2">A quanto lo rivendi (€)</label>
+                        <input type="number" id="rSell" value="165" min="0" class="w-full px-4 py-3.5 rounded-xl bg-aureum-obsidian border border-stone-800 text-aureum-ivory text-lg font-bold focus:outline-none focus:border-aureum-gold">
+                    </div>
+                    <div>
+                        <label for="rFees" class="block text-xs font-semibold text-stone-400 mb-2">Spese / Spedizione (€)</label>
+                        <input type="number" id="rFees" value="15" min="0" class="w-full px-4 py-3.5 rounded-xl bg-aureum-obsidian border border-stone-800 text-aureum-ivory text-lg font-bold focus:outline-none focus:border-aureum-gold">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 rounded-2xl bg-aureum-obsidian border border-subtle">
+                    <div>
+                        <span class="text-xs text-stone-400 block">Guadagno Netto in Tasca</span>
+                        <span id="rNetOut" class="font-serif text-2xl sm:text-3xl font-bold text-emerald-400 mt-1 block">+ € 60,00</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-stone-400 block">Ritorno sull'Investimento (ROI)</span>
+                        <span id="rRoiOut" class="font-serif text-2xl sm:text-3xl font-bold text-aureum-goldLight mt-1 block">+ 66,7%</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-stone-400 block">Valutazione Operazione</span>
+                        <span id="rVerdictOut" class="text-sm font-bold text-emerald-400 mt-2 inline-block px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20">Ottimo Margine</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CALCOLATORE 2: CRESCITA CAPITALE -->
+            <div id="calc-box-compound" class="hidden bg-aureum-charcoal rounded-3xl border border-subtle p-6 sm:p-10 shadow-xl space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-stone-400">Capitale Iniziale</span>
+                            <span id="cInitLabel" class="font-bold text-aureum-goldLight">€ 1.000</span>
+                        </div>
+                        <input type="range" id="cInit" min="100" max="15000" step="100" value="1000">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-stone-400">Risparmio Mensile</span>
+                            <span id="cMonthLabel" class="font-bold text-aureum-goldLight">€ 250 / mese</span>
+                        </div>
+                        <input type="range" id="cMonth" min="0" max="2000" step="50" value="250">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-stone-400">Rendimento Annuo Medio</span>
+                            <span id="cRateLabel" class="font-bold text-aureum-goldLight">8% annuo</span>
+                        </div>
+                        <input type="range" id="cRate" min="2" max="20" step="1" value="8">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-stone-400">Durata</span>
+                            <span id="cYearsLabel" class="font-bold text-aureum-goldLight">10 Anni</span>
+                        </div>
+                        <input type="range" id="cYears" min="1" max="30" step="1" value="10">
+                    </div>
+                </div>
+
+                <!-- Risultato Chiaro con Barra Visiva -->
+                <div class="p-6 rounded-2xl bg-aureum-obsidian border border-subtle space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                        <div>
+                            <span class="text-xs text-stone-400 block">Capitale Finale Stimato</span>
+                            <span id="cTotalOut" class="font-serif text-3xl sm:text-4xl font-bold text-aureum-goldLight">€ 47.955</span>
+                        </div>
+                        <div class="flex gap-6 text-sm">
+                            <div>
+                                <span class="text-xs text-stone-500 block">Soldi Versati da Te</span>
+                                <span id="cInvestedOut" class="font-bold text-stone-300">€ 31.000</span>
+                            </div>
+                            <div>
+                                <span class="text-xs text-stone-500 block">Interessi Guadagnati</span>
+                                <span id="cProfitOut" class="font-bold text-emerald-400">+ € 16.955</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Barra Proporzione Versato vs Guadagnato -->
+                    <div class="w-full h-3 rounded-full bg-stone-800 overflow-hidden flex">
+                        <div id="barInvested" class="bg-stone-500 h-full transition-all duration-300" style="width: 65%"></div>
+                        <div id="barProfit" class="bg-aureum-gold h-full transition-all duration-300" style="width: 35%"></div>
+                    </div>
+                    <div class="flex justify-between text-[11px] text-stone-400">
+                        <span>Grigio: Capitale versato</span>
+                        <span class="text-aureum-goldLight">Oro: Guadagno generato dal tempo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. BANNER DEDICATO AL TUO CANALE YOUTUBE ==================== -->
+    <section class="py-20 px-4 sm:px-6">
+        <div class="max-w-5xl mx-auto rounded-3xl gold-panel p-8 sm:p-12 text-[#1D1608] shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="space-y-3 text-center md:text-left max-w-xl">
+                <span class="inline-block px-3 py-1 rounded-full bg-[#1D1608]/10 text-xs font-bold uppercase tracking-widest">
+                    Canale Ufficiale • @aureummmm
+                </span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-extrabold leading-tight">
+                    Vuoi vedere queste strategie in azione?
+                </h2>
+                <p class="text-sm sm:text-base font-medium text-[#2A200C]/90">
+                    Sul mio canale YouTube pubblico regolarmente analisi dei mercati, esempi reali di reselling e approfondimenti pratici sulla finanza personale.
+                </p>
+            </div>
+
+            <a href="https://youtube.com/@aureummmm?si=VPAo7N-sSHqoZV_P" target="_blank" rel="noopener noreferrer" class="w-full md:w-auto px-8 py-4 rounded-2xl bg-[#120F0A] hover:bg-[#1F1A12] text-aureum-goldLight font-bold text-sm tracking-wide shadow-xl transition-all flex items-center justify-center gap-3 whitespace-nowrap">
+                <i data-lucide="youtube" class="w-5 h-5 text-aureum-gold"></i>
+                <span>Vai su YouTube (@aureummmm)</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== 7. FOOTER MINIMALISTA ==================== -->
+    <footer class="border-t border-subtle py-12 px-4 sm:px-6 text-stone-500 text-xs">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <span class="font-serif text-lg font-bold tracking-[0.2em] text-aureum-goldLight">AUREUM</span>
+                <span>• Educazione Finanziaria</span>
+            </div>
+
+            <p class="text-center sm:text-right max-w-md leading-relaxed">
+                Disclaimer: Tutti i contenuti presenti su questo sito hanno scopo puramente informativo ed educativo e non costituiscono consulenza finanziaria.
+            </p>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL LETTURA GUIDA COMPLETA (DISTRACTION-FREE) ==================== -->
+    <div id="guideModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="bg-aureum-charcoal border border-aureum-gold/40 rounded-3xl max-w-2xl w-full max-h-[88vh] overflow-y-auto p-6 sm:p-10 relative shadow-2xl">
+            <button onclick="closeGuide()" aria-label="Chiudi guida" class="sticky top-0 float-right w-10 h-10 rounded-full bg-aureum-surface text-stone-300 hover:text-aureum-goldLight flex items-center justify-center border border-subtle">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <span id="gBadge" class="text-xs font-bold uppercase tracking-widest text-aureum-gold">Lezione</span>
+            <h3 id="gTitle" class="mt-2 font-serif text-2xl sm:text-3xl font-bold text-aureum-ivory leading-snug">Titolo Guida</h3>
+            
+            <div id="gBody" class="mt-6 space-y-4 text-sm sm:text-base text-stone-300 leading-relaxed">
+                <!-- Contenuto guida inserito via JS -->
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-subtle flex justify-between items-center">
+                <span class="text-xs text-stone-500">Accademia AUREUM</span>
+                <button onclick="closeGuide()" class="btn-gold px-6 py-2.5 rounded-xl text-xs font-bold">
+                    Ho capito, chiudi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== LOGICA JAVASCRIPT PULITA ==================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            showArea('trading');
+            calcReselling();
+            calcCompound();
+        });
+
+        // Menu Mobile
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+        // ==================== DATI DEI 4 PILASTRI (SPIEGAZIONE CHIARA + ILLUSTRAZIONE SVG) ====================
+        const areas = {
+            trading: {
+                tag: '01 • Mercati Finanziari',
+                title: 'Trading & Analisi del Prezzo',
+                desc: 'Fare trading non significa scommettere sull’andamento di una candela, ma leggere la struttura del mercato e gestire il rischio con precisione matematica.',
+                points: [
+                    'Identificare trend rialzisti, ribassisti e zone di liquidità',
+                    'Usare lo Stop Loss su ogni singola operazione senza eccezioni',
+                    'Cercare solo operazioni con rendimento almeno doppio rispetto al rischio (1:2)'
+                ],
+                svg: `
+                    <svg viewBox="0 0 260 150" class="w-full h-auto">
+                        <rect x="10" y="10" width="240" height="130" rx="16" fill="#0B0B0A" stroke="#C9A255" stroke-opacity="0.25"/>
+                        <line x1="25" y1="110" x2="235" y2="110" stroke="#C9A255" stroke-dasharray="4 4"/>
+                        <path d="M35 95 L75 65 L105 85 L155 40 L185 55 L225 25" fill="none" stroke="#E6CA8A" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="105" cy="85" r="5" fill="#10B981"/>
+                        <text x="115" y="92" fill="#6EE7B7" font-size="10" font-family="sans-serif" font-weight="bold">Punto d'Ingresso</text>
+                    </svg>
+                `
+            },
+            reselling: {
+                tag: '02 • Liquidità Attiva',
+                title: 'Reselling & Compravendita',
+                desc: 'Il modo più concreto per generare capitale iniziale partendo da budget contenuti. Consiste nell’acquistare articoli richiesti sotto il loro valore di mercato e rivenderli rapidamente.',
+                points: [
+                    'Scegliere nicchie con alta domanda (sneakers, tech, streetwear, usato selezionato)',
+                    'Calcolare sempre commissioni e spedizioni prima di comprare',
+                    'Reinvestire i profitti per aumentare gradualmente lo stock'
+                ],
+                svg: `
+                    <svg viewBox="0 0 260 150" class="w-full h-auto">
+                        <rect x="10" y="10" width="240" height="130" rx="16" fill="#0B0B0A" stroke="#C9A255" stroke-opacity="0.25"/>
+                        <rect x="30" y="48" width="55" height="54" rx="10" fill="#1C1B19" stroke="#78716C"/>
+                        <text x="57" y="72" text-anchor="middle" fill="#A8A29E" font-size="9">COMPRI</text>
+                        <text x="57" y="88" text-anchor="middle" fill="#F5F3EE" font-size="12" font-weight="bold">€ 70</text>
+                        <path d="M92 75 L112 75" stroke="#C9A255" stroke-width="2"/>
+                        <rect x="118" y="48" width="55" height="54" rx="10" fill="#1C1B19" stroke="#C9A255"/>
+                        <text x="145" y="72" text-anchor="middle" fill="#E6CA8A" font-size="9">VENDI</text>
+                        <text x="145" y="88" text-anchor="middle" fill="#F5F3EE" font-size="12" font-weight="bold">€ 130</text>
+                        <path d="M178 75 L195 75" stroke="#10B981" stroke-width="2"/>
+                        <circle cx="218" cy="75" r="22" fill="#10B981" fill-opacity="0.2" stroke="#10B981"/>
+                        <text x="218" y="79" text-anchor="middle" fill="#34D399" font-size="11" font-weight="bold">+€50</text>
+                    </svg>
+                `
+            },
+            investimenti: {
+                tag: '03 • Crescita nel Tempo',
+                title: 'Investimenti, ETF & Azioni',
+                desc: 'Una volta creata liquidità, l’obiettivo è far crescere il patrimonio nel lungo periodo battendo l’inflazione attraverso portafogli diversificati e piani di accumulo.',
+                points: [
+                    'Sfruttare la potenza dell’interesse composto su orizzonti di 5-15 anni',
+                    'Diversificare su centinaia di aziende globali tramite ETF a basso costo',
+                    'Investire con costanza ogni mese senza farsi influenzare dalle notizie'
+                ],
+                svg: `
+                    <svg viewBox="0 0 260 150" class="w-full h-auto">
+                        <rect x="10" y="10" width="240" height="130" rx="16" fill="#0B0B0A" stroke="#C9A255" stroke-opacity="0.25"/>
+                        <rect x="40" y="90" width="24" height="30" rx="4" fill="#44403C"/>
+                        <rect x="80" y="75" width="24" height="45" rx="4" fill="#78716C"/>
+                        <rect x="120" y="55" width="24" height="65" rx="4" fill="#A37D33"/>
+                        <rect x="160" y="35" width="24" height="85" rx="4" fill="#C9A255"/>
+                        <rect x="200" y="20" width="24" height="100" rx="4" fill="#E6CA8A"/>
+                    </svg>
+                `
+            },
+            gestione: {
+                tag: '04 • Regole del Denaro',
+                title: 'Gestione del Capitale & Budget',
+                desc: 'Puoi guadagnare molto, ma se non sai gestire le uscite resterai sempre al punto di partenza. La disciplina finanziaria è la base di tutto.',
+                points: [
+                    'Dividere le entrate: 50% spese essenziali, 30% crescita/investimenti, 20% svago',
+                    'Mantenere sempre un fondo di emergenza liquido per gli imprevisti',
+                    'Non investire mai soldi che ti servono per vivere nei prossimi mesi'
+                ],
+                svg: `
+                    <svg viewBox="0 0 260 150" class="w-full h-auto">
+                        <rect x="10" y="10" width="240" height="130" rx="16" fill="#0B0B0A" stroke="#C9A255" stroke-opacity="0.25"/>
+                        <rect x="30" y="45" width="200" height="22" rx="11" fill="#1C1B19"/>
+                        <rect x="30" y="45" width="100" height="22" rx="11" fill="#78716C"/>
+                        <rect x="130" y="45" width="60" height="22" fill="#C9A255"/>
+                        <rect x="190" y="45" width="40" height="22" rx="11" fill="#10B981"/>
+                        <text x="32" y="90" fill="#A8A29E" font-size="10">50% Necessità</text>
+                        <text x="115" y="90" fill="#E6CA8A" font-size="10">30% Crescita</text>
+                        <text x="190" y="90" fill="#6EE7B7" font-size="10">20% Extra</text>
+                    </svg>
+                `
+            }
+        };
+
+        function showArea(key) {
+            const data = areas[key];
+            if (!data) return;
+
+            document.querySelectorAll('.area-btn').forEach(btn => {
+                btn.className = 'area-btn p-4 rounded-2xl text-left transition-all bg-aureum-charcoal text-stone-300 hover:text-aureum-goldLight border border-subtle font-semibold';
+            });
+
+            const activeBtn = document.getElementById(`btn-area-${key}`);
+            if (activeBtn) {
+                activeBtn.className = 'area-btn p-4 rounded-2xl text-left transition-all bg-aureum-gold text-aureum-obsidian font-bold shadow-lg';
+            }
+
+            document.getElementById('area-display').innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-4">
+                        <span class="text-xs font-bold uppercase tracking-widest text-aureum-gold">${data.tag}</span>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-aureum-ivory">${data.title}</h3>
+                        <p class="text-stone-400 text-sm sm:text-base leading-relaxed">${data.desc}</p>
+                        <ul class="space-y-2.5 pt-2">
+                            ${data.points.map(pt => `
+                                <li class="flex items-start gap-2.5 text-sm text-stone-200">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-aureum-gold mt-0.5 shrink-0"></i>
+                                    <span>${pt}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    <div class="lg:col-span-5">
+                        ${data.svg}
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // ==================== DATI GUIDE SCRITTE COMPLETE (MODAL) ====================
+        const guides = [
+            {
+                badge: 'Lezione 01 • Trading & Grafici',
+                title: 'Come leggere un grafico pulito senza indicatori inutili',
+                html: `
+                    <p>Uno degli errori più comuni quando si inizia a fare trading è riempire il grafico di decine di linee, oscillatori e indicatori colorati. Il risultato? Segnali contraddittori e paralisi decisionale.</p>
+                    <div class="p-4 rounded-2xl bg-aureum-obsidian border border-subtle">
+                        <h4 class="font-bold text-aureum-goldLight mb-2">1. Guarda prima la Struttura (Trend)</h4>
+                        <p class="text-sm text-stone-400">Un mercato rialzista forma massimi e minimi crescenti. Un mercato ribassista forma massimi e minimi decrescenti. Finché questa struttura non si rompe, non ha senso andare contro tendenza.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-aureum-obsidian border border-subtle">
+                        <h4 class="font-bold text-aureum-goldLight mb-2">2. Segna solo i livelli chiave</h4>
+                        <p class="text-sm text-stone-400">Traccia solo le zone dove il prezzo in passato ha avuto una reazione forte e violenta. Quelli sono i punti in cui gli operatori più grandi hanno inserito ordini importanti.</p>
+                    </div>
+                    <p><strong>Regola pratica:</strong> Se non riesci a capire la direzione del grafico in 5 secondi, cambia grafico. La chiarezza viene prima di qualsiasi operazione.</p>
+                `
+            },
+            {
+                badge: 'Lezione 02 • Reselling & Flipping',
+                title: 'Il metodo del Reselling: trovare margini reali e veloci',
+                html: `
+                    <p>Il reselling è l'arte di comprare bene per vendere meglio. Il vero guadagno non si fa quando vendi, ma <strong>nel momento esatto in cui acquisti</strong> al prezzo giusto.</p>
+                    <div class="p-4 rounded-2xl bg-aureum-obsidian border border-subtle">
+                        <h4 class="font-bold text-aureum-goldLight mb-2">La Formula del Margine Sicuro</h4>
+                        <p class="text-sm text-stone-400">Prima di comprare un oggetto, controlla a quanto è stato <em>realmente venduto</em> negli ultimi 30 giorni (non il prezzo degli annunci ancora invenduti). Sottrai commissioni e spedizione: se ti resta almeno un 30-40% netto, l'operazione è valida.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-aureum-obsidian border border-subtle">
+                        <h4 class="font-bold text-aureum-goldLight mb-2">Velocità di Rotazione</h4>
+                        <p class="text-sm text-stone-400">Meglio guadagnare €35 in 3 giorni e reinvestire subito il capitale, piuttosto che bloccare €200 per 4 mesi sperando di guadagnarne €60.</p>
+                    </div>
+                `
+            },
+            {
+                badge: 'Lezione 03 • Risk Management',
+                title: 'La regola dell’1%: come non bruciare mai il capitale',
+                html: `
+                    <p>Anche la migliore strategia al mondo ha periodi in cui 4 o 5 operazioni consecutive chiudono in perdita. La gestione del rischio serve a farti sopravvivere senza danni a quei momenti.</p>
+                    <div class="p-4 rounded-2xl bg-aureum-obsidian border border-subtle">
+                        <h4 class="font-bold text-aureum-goldLight mb-2">Esempio Numerico su €2.000</h4>
+                        <p class="text-sm text-stone-400">Se rischi l'<strong>1%</strong> per trade, la tua perdita massima consentita è <strong>€20</strong>. Anche se sbagliassi 10 operazioni di fila, avresti ancora il 90% del tuo conto intatto e la lucidità per recuperare.</p>
+                    </div>
+                    <p><strong>Asimmetria:</strong> Punta sempre a guadagnare almeno 2 o 3 volte quello che rischi. Così facendo ti basta avere ragione solo 4 volte su 10 per essere comunque in profitto a fine mese.</p>
+                `
+            },
+            {
+                badge: 'Lezione 04 • Investimenti & ETF',
+                title: 'ETF & Interesse Composto: far lavorare i tuoi profitti',
+                html: `
+                    <p>Generare liquidità con il lavoro, il trading o il reselling è il primo passo. Il secondo passo è trasformare quella liquidità in un patrimonio che cresce da solo nel tempo.</p>
+                    <div class="p-4 rounded-2xl bg-aureum-obsidian border border-subtle">
+                        <h4 class="font-bold text-aureum-goldLight mb-2">Cos'è un ETF in parole semplici?</h4>
+                        <p class="text-sm text-stone-400">È un fondo che replica automaticamente l'andamento di un intero indice (come le 500 aziende più grandi d'America o l'economia mondiale), permettendoti di diversificare con costi bassissimi e senza dover scegliere singole azioni.</p>
+                    </div>
+                    <p><strong>Il fattore tempo:</strong> Grazie all'interesse composto, i rendimenti generati ogni anno producono a loro volta nuovi rendimenti, creando una curva di crescita sempre più ripida col passare degli anni.</p>
+                `
+            }
+        ];
+
+        function openGuide(index) {
+            const g = guides[index];
+            if (!g) return;
+            document.getElementById('gBadge').textContent = g.badge;
+            document.getElementById('gTitle').textContent = g.title;
+            document.getElementById('gBody').innerHTML = g.html;
+            const modal = document.getElementById('guideModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeGuide() {
+            const modal = document.getElementById('guideModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // ==================== LOGICA CALCOLATORI ====================
+        function switchCalc(type) {
+            const rBox = document.getElementById('calc-box-reselling');
+            const cBox = document.getElementById('calc-box-compound');
+            const rTab = document.getElementById('calc-tab-reselling');
+            const cTab = document.getElementById('calc-tab-compound');
+
+            if (type === 'reselling') {
+                rBox.classList.remove('hidden');
+                cBox.classList.add('hidden');
+                rTab.className = 'px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-aureum-gold text-aureum-obsidian transition-all';
+                cTab.className = 'px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-aureum-charcoal text-stone-300 border border-subtle hover:text-aureum-goldLight transition-all';
+            } else {
+                rBox.classList.add('hidden');
+                cBox.classList.remove('hidden');
+                cTab.className = 'px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-aureum-gold text-aureum-obsidian transition-all';
+                rTab.className = 'px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-aureum-charcoal text-stone-300 border border-subtle hover:text-aureum-goldLight transition-all';
+            }
+        }
+
+        // Calcolatore Reselling
+        ['rBuy', 'rSell', 'rFees'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calcReselling);
+        });
+
+        function calcReselling() {
+            const buy = parseFloat(document.getElementById('rBuy').value) || 0;
+            const sell = parseFloat(document.getElementById('rSell').value) || 0;
+            const fees = parseFloat(document.getElementById('rFees').value) || 0;
+
+            const net = sell - buy - fees;
+            const roi = buy > 0 ? (net / buy) * 100 : 0;
+
+            const netEl = document.getElementById('rNetOut');
+            netEl.textContent = `${net >= 0 ? '+ ' : '- '}€ ${Math.abs(net).toFixed(2).replace('.', ',')}`;
+            netEl.className = `font-serif text-2xl sm:text-3xl font-bold mt-1 block ${net >= 0 ? 'text-emerald-400' : 'text-rose-400'}`;
+
+            document.getElementById('rRoiOut').textContent = `${roi >= 0 ? '+ ' : ''}${roi.toFixed(1).replace('.', ',')}%`;
+
+            const verdictEl = document.getElementById('rVerdictOut');
+            if (roi >= 40) {
+                verdictEl.textContent = 'Ottimo Margine';
+                verdictEl.className = 'text-sm font-bold text-emerald-400 mt-2 inline-block px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20';
+            } else if (roi >= 15) {
+                verdictEl.textContent = 'Margine Discreto';
+                verdictEl.className = 'text-sm font-bold text-aureum-goldLight mt-2 inline-block px-3 py-1 rounded-lg bg-aureum-gold/10 border border-aureum-gold/20';
+            } else {
+                verdictEl.textContent = 'Margine Troppo Basso';
+                verdictEl.className = 'text-sm font-bold text-rose-400 mt-2 inline-block px-3 py-1 rounded-lg bg-rose-500/10 border border-rose-500/20';
+            }
+        }
+
+        // Simulatore Crescita Capitale
+        ['cInit', 'cMonth', 'cRate', 'cYears'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calcCompound);
+        });
+
+        function calcCompound() {
+            const init = parseFloat(document.getElementById('cInit').value);
+            const monthly = parseFloat(document.getElementById('cMonth').value);
+            const rate = parseFloat(document.getElementById('cRate').value) / 100;
+            const years = parseInt(document.getElementById('cYears').value, 10);
+
+            document.getElementById('cInitLabel').textContent = `€ ${init.toLocaleString('it-IT')}`;
+            document.getElementById('cMonthLabel').textContent = `€ ${monthly.toLocaleString('it-IT')} / mese`;
+            document.getElementById('cRateLabel').textContent = `${(rate * 100).toFixed(0)}% annuo`;
+            document.getElementById('cYearsLabel').textContent = `${years} ${years === 1 ? 'Anno' : 'Anni'}`;
+
+            const monthlyRate = rate / 12;
+            const months = years * 12;
+            let total = init;
+            let invested = init;
+
+            for (let i = 0; i < months; i++) {
+                total = (total + monthly) * (1 + monthlyRate);
+                invested += monthly;
+            }
+
+            const profit = Math.max(0, total - invested);
+            const invPct = total > 0 ? Math.round((invested / total) * 100) : 100;
+            const profPct = 100 - invPct;
+
+            document.getElementById('cTotalOut').textContent = `€ ${Math.round(total).toLocaleString('it-IT')}`;
+            document.getElementById('cInvestedOut').textContent = `€ ${Math.round(invested).toLocaleString('it-IT')}`;
+            document.getElementById('cProfitOut').textContent = `+ € ${Math.round(profit).toLocaleString('it-IT')}`;
+
+            document.getElementById('barInvested').style.width = `${invPct}%`;
+            document.getElementById('barProfit').style.width = `${profPct}%`;
+        }
+    </script>
+</body>
+</html>
